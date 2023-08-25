@@ -71,7 +71,6 @@ public class FavouritesView extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        menu.findItem(R.id.menuMain).setVisible(false);
         return true;
     }
 

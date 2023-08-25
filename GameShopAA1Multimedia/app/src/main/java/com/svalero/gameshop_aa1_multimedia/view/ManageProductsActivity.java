@@ -9,9 +9,13 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.svalero.gameshop_aa1_multimedia.R;
@@ -28,11 +32,13 @@ import java.util.List;
 public class ManageProductsActivity extends AppCompatActivity implements ProductListContract.View {
 
     private List<Product> productList;
+    private List<Product> productListFull;
     private ProductAdapter productAdapter;
     private String username;
     private Long id;
     //New
     private ProductsListPresenter productListPresenter;
+    private EditText filterText;
 
 
     @Override
@@ -45,15 +51,34 @@ public class ManageProductsActivity extends AppCompatActivity implements Product
         id = intentFrom.getLongExtra("client_id", 0L);
 
         productList = new ArrayList<>();
-
+        productListFull = new ArrayList<>();
+        filterText = findViewById(R.id.filterText);
         RecyclerView recyclerView = findViewById(R.id.productsRv);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         productAdapter = new ProductAdapter(this, productList, intentFrom);
-        //New
+
         productListPresenter = new ProductsListPresenter(this);
         recyclerView.setAdapter(productAdapter);
+
+        filterText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                productList.clear();
+                productList.addAll(productListFull);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                productAdapter.getFilter().filter(charSequence.toString().toLowerCase());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     public void onResume(){
@@ -128,6 +153,7 @@ public class ManageProductsActivity extends AppCompatActivity implements Product
     public void showProducts(List<Product> productList) {
         this.productList.clear();
         this.productList.addAll(productList);
+        this.productListFull.addAll(productList);
         productAdapter.notifyDataSetChanged();
     }
 

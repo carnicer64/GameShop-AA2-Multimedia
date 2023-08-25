@@ -44,7 +44,7 @@
     <string name="menuPreferences">Preferencias</string>
     <string name="preferencesLogin">Inicio de sesión automático</string>
     <string name="preferencesBack">Volver al menú principal al registrar objeto</string>
-    <string name="preferencesRegister">Colocar marcador automático con GPS</string>
+    <string name="preferencesRegister">Abrir favoritos por defecto</string>
     <string name="autoLoginCorrect">¡Inicio de sesión automático correcto!</string>
     <string name="autoLoginIncorrect">¡Inicio de sesión automático incorrecto!</string>
     <string name="userEmty">El nombre de usuario está vacío</string>

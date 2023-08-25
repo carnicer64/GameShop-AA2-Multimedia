@@ -141,11 +141,13 @@ public class RegisterMap extends AppCompatActivity implements Style.OnStyleLoade
             // Got last known location. In some rare situations this can be null.
             if (location != null) {
                 // Logic to handle location object
+                /*
                 if(preferences.isAutoMarker()){
                     gpsLongitude = location.getLongitude();
                     gpsLatitude = location.getLatitude();
                     addMarker(location.getLatitude(), location.getLongitude(), R.mipmap.red_marker_foreground);
                 }
+                */
 
                 setCameraPosition(location.getLatitude(), location.getLongitude());
             } else {

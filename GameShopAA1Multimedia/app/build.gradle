@@ -44,6 +44,8 @@ dependencies {
     //Mapbox
     implementation 'com.mapbox.maps:android:10.10.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'com.mapbox.navigation:core:2.11.0'
+    implementation 'com.mapbox.navigation:android:2.11.0'
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'

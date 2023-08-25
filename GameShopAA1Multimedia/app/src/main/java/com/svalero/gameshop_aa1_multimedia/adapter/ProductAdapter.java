@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,9 +27,10 @@ import com.svalero.gameshop_aa1_multimedia.db.GameShopDatabase;
 import com.svalero.gameshop_aa1_multimedia.domain.Product;
 import com.svalero.gameshop_aa1_multimedia.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.SuperheroHolder> implements ProductDeleteContract.View {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.SuperheroHolder> implements ProductDeleteContract.View, Filterable {
     public Context context;
     public List<Product> productList;
     private ProductDeletePresenter productDeletePresenter;
@@ -69,6 +72,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Superher
     @Override
     public void showDeleteError(String error) {
         Toast.makeText(this.context, error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new ProductAdapterFilter();
     }
 
     public class SuperheroHolder extends RecyclerView.ViewHolder{
@@ -130,6 +138,35 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Superher
             intent.putExtra("clientUsername", username);
             intent.putExtra("detail", product);
             context.startActivity(intent);
+        }
+    }
+
+    class ProductAdapterFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<Product> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(productList);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Product product : productList) {
+                    if (product.getName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(product);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            productList.clear();
+            productList.addAll((List)results.values);
+            notifyDataSetChanged();
         }
     }
 }

@@ -9,11 +9,25 @@
     <com.mapbox.maps.MapView
         android:id="@+id/mapViewDetail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/button9"
         app:layout_constraintTop_toTopOf="parent"
         app:mapbox_cameraTargetLat="40.7128"
         app:mapbox_cameraTargetLng="-74.0060"
         app:mapbox_cameraZoom="9.0"
-        tools:layout_editor_absoluteX="1dp"></com.mapbox.maps.MapView>
+        tools:layout_editor_absoluteX="197dp">
+
+    </com.mapbox.maps.MapView>
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="getRoute"
+        android:text="@string/route"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

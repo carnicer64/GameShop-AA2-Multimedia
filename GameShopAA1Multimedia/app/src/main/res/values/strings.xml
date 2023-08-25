@@ -43,7 +43,7 @@
     <string name="menuPreferences">Preferences</string>
     <string name="preferencesLogin">Auto login</string>
     <string name="preferencesBack">Back to main menu when register object</string>
-    <string name="preferencesRegister">Place automarker with gps</string>
+    <string name="preferencesRegister">Open favourites default</string>
     <string name="autoLoginCorrect">Autologin Correct!</string>
     <string name="autoLoginIncorrect">Autologin Incorrect!</string>
     <string name="userEmty">Username is empty</string>
@@ -62,6 +62,8 @@
     <string name="shopDelete">Delete Shop</string>
     <string name="favProducts">Favourite Products</string>
     <string name="favCheck">Favourite</string>
+    <string name="route">Show route</string>
+
 
 
 </resources>

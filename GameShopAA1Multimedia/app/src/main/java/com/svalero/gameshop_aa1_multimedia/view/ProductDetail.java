@@ -165,12 +165,13 @@ public class ProductDetail extends AppCompatActivity implements ProductDetailsCo
 
     private void setFavourite(){
         final GameShopDatabase db = Room.databaseBuilder(this, GameShopDatabase.class, DATABASE_NAME).allowMainThreadQueries().build();
+        Favourite favourite1 = new Favourite(detailProduct.getId(), id, detailProduct.getName(), detailProduct.getBarCode());
         try {
             if(favourite.isChecked()){
-                Favourite favourite1 = new Favourite(detailProduct.getId(), id, detailProduct.getName(), detailProduct.getBarCode());
                 db.getFavouriteDAO().insert(favourite1);
             } else {
-                Favourite favourite1 = new Favourite(detailProduct.getId(), id, detailProduct.getName(), detailProduct.getBarCode());
+                long favouriteID = db.getFavouriteDAO().getFavById(detailProduct.getId(), id).getId();
+                favourite1.setId(favouriteID);
                 db.getFavouriteDAO().delete(favourite1);
             }
         } catch (SQLiteConstraintException sce) {
