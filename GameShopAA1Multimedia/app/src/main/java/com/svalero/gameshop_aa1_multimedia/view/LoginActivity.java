@@ -53,10 +53,24 @@ public class LoginActivity extends AppCompatActivity {
                     Client client = db.getClientDAO().login(user, pass);
                     if(client != null){
                         Toast.makeText(this, R.string.autoLoginCorrect, Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("client_id", client.getId());
-                        intent.putExtra("clientUsername", client.getUsername());
-                        startActivity(intent);
+                        if(preferences != null){
+                            Intent intent;
+                            if(preferences.isAutoMarker()){
+                                intent = new Intent(this, FavouritesView.class);
+                                intent.putExtra("client_id", id);
+                                intent.putExtra("clientUsername", username);
+                            } else {
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra("client_id", client.getId());
+                                intent.putExtra("clientUsername", client.getUsername());
+                            }
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("client_id", client.getId());
+                            intent.putExtra("clientUsername", client.getUsername());
+                            startActivity(intent);
+                        }
                     } else {
                         Toast.makeText(this, R.string.autoLoginIncorrect, Toast.LENGTH_LONG).show();
                     }
